@@ -14,7 +14,26 @@ This package can be used as to scaffold a PHP package. Follow these steps to get
 
 A brief explanation of the different components of this package template.
 
-- 
+- `.github/ISSUE_TEMPLATE` - GitHub issue templates
+- `.github/workflows` - GitHub actions for running tests (php.yml) and automated releases (release.yml)
+- `.github/dependabot.yml` - Dependabot configuration
+- `src/` - The PHP source code for your package, this will autoload based on the autoload rules in composer.json 
+- `tests` - PHPUnit tests for your package
+- `.editorconfig` - Your [editor coding style](https://editorconfig.org/) configuration
+- `.gitattributes` - Ignore these files/folders when this package is installed via Composer
+- `.phpcs.xml.dist` - [PHPCodeSniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer/) configuration
+- `.phplint.yml` - [PHPLint](https://github.com/overtrue/phplint) configuration
+- `CHANGELOG.md` - A list of notable changes, the contents of this file are automated by automated releases
+- `CODE_OF_CONDUCT.md` - Contributor's code of conduct
+- `composer.json` - Composer PHP package dependencies
+- `configure.php` - Package configuration script, this file is deleted once run
+- `CONTRIBUTING.md` - Guide to contributing
+- `LICENSE.md` - License information
+- `phpstan.neon` - [PHPStan](https://phpstan.org/) configuration
+- `phpunit.xml.dist` - [PHPUnit](https://phpunit.de/) configuration
+- `README.md` - This README file, this file is deleted once configure.php is run
+- `README_DEFAULT.md` - The default README file for your new package
+- `SECURITY.md` - Security policy for this package
 
 ## License
 
