@@ -67,20 +67,13 @@ function removeReadmeParagraphs(string $file): void
     );
 }
 
-function determineSeparator(string $path): string
-{
-    return str_replace('/', DIRECTORY_SEPARATOR, $path);
-}
-
 function replaceForAllOtherOSes(): array
 {
-    return explode(PHP_EOL, run('grep -E -r -l -i "VendorName|PackageTemplate|ExampleClass|vendor_slug|package_name|package_slug|package_description" --exclude-dir=vendor ./* ./.github/* | grep -v '.basename(__FILE__)));
+    return explode(PHP_EOL, run('grep -E -r -l -i "VendorName|PackageTemplate|ExampleClass|vendor_slug|package_name|package_slug|package_description" --exclude-dir=vendor ./* ./.github/* | grep -v ' . basename(__FILE__)));
 }
 
-$vendorName = ask('Vendor name', 'Studio 24');
-$vendorSlug = slugify($vendorName);
-$vendorNamespace = ucwords($vendorName, 'Studio24');
-$vendorNamespace = ask('Vendor namespace', $vendorNamespace);
+$vendorNamespace = ask('Vendor namespace', 'Studio24');
+$vendorSlug = ask('Vendor slug', strtolower($vendorNamespace));
 
 $currentDirectory = getcwd();
 $folderName = basename($currentDirectory);
@@ -93,8 +86,8 @@ $className = ask('Class name', $className);
 $description = ask('Package description', "This is my package {$packageSlug}");
 
 writeln('------');
-writeln("Vendor     : {$vendorName} ({$vendorSlug})");
-writeln("Package    : {$packageSlug} <{$description}>");
+writeln("Package    : {$vendorSlug}/{$packageSlug}");
+writeln("Description: {$description}");
 writeln("Namespace  : {$vendorNamespace}\\{$className}");
 writeln("Class name : {$className}");
 writeln('------');
@@ -118,8 +111,8 @@ foreach ($files as $file) {
         ':package_description' => $description,
     ]);
 
-    if ($file == 'src/Example.php') {
-        rename($file, determineSeparator('./src/' . $className . '.php'));
+    if (str_contains($file, 'src/ExampleClass.php')) {
+        rename($file, './src/' . $className . '.php');
     }
 }
 
